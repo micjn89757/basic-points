@@ -26,6 +26,7 @@ var lc76Test = map[string]lc76Example{
 	},
 }
 
+// go test -timeout 30s -run ^TestMinWindow$ algorithmn/array
 func TestMinWindow(t *testing.T) {
 	for name, te := range lc76Test {
 		t.Run(name, func(t *testing.T) {
