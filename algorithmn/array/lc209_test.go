@@ -1,6 +1,8 @@
 package array
 
-import "testing"
+import (
+	"testing"
+)
 
 type lc209Example struct {
 	input  []int
@@ -41,3 +43,4 @@ func TestMinSubArrayLen(t *testing.T) {
 		})
 	}
 }
+
