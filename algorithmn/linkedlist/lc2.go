@@ -6,19 +6,19 @@ package linkedlist
 // 请你将两个数相加，并以相同形式返回一个表示和的链表。
 // 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
 
-type ListNode struct {
+type Lc2ListNode struct {
 	Val int 
-	Next *ListNode
+	Next *Lc2ListNode
 }
 
 // 注意：循环条件，进位处理，指针移动状态。
 // addTwoNumbers 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func addTwoNumbers(l1 *Lc2ListNode, l2 *Lc2ListNode) *Lc2ListNode {
 	addNum := 0 
 	p1 := l1
 	p2 := l2
 	n := 0 
-	resList := &ListNode{}
+	resList := &Lc2ListNode{}
 	p3 := resList
 
 	// 注意循环条件
@@ -33,7 +33,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			p3.Val = tempNum
 			p3.Next = nil
 		}else {
-			node := &ListNode{
+			node := &Lc2ListNode{
 				Val: tempNum,
 				Next: nil,
 			}
@@ -55,7 +55,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		tempSum := addNum + p1.Val
 		tempNum := tempSum % 10
 		addNum = tempSum / 10
-		node := &ListNode{
+		node := &Lc2ListNode{
 			Val: tempNum,
 			Next: nil,
 		}
@@ -69,7 +69,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		tempNum := tempSum % 10
 		addNum = tempSum / 10
 
-		node := &ListNode{
+		node := &Lc2ListNode{
 			Val: tempNum,
 			Next: nil,
 		}
@@ -81,7 +81,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	
 	// 进位不为空
 	if addNum != 0 {
-		node := &ListNode{
+		node := &Lc2ListNode{
 			Val: addNum,
 			Next: nil,
 		}
