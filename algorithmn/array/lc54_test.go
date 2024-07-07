@@ -27,6 +27,16 @@ var lc54Test = map[string]lc54Example{
 		},
 		expect: []int{1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7},
 	},
+	"example3": {
+		input: [][]int {
+			{1},
+			{2},
+			{3},
+			{4},
+			{5},
+		},
+		expect: []int{1, 2, 3, 4, 5},
+	},
 }
 
 func TestSpiralOrder(t *testing.T) {
