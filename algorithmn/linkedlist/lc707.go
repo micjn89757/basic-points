@@ -31,8 +31,8 @@ func Constructor() Lc707LinkedList {
 }
 
 
-func (this *Lc707LinkedList) Get(index int) int {
-    p := this.Next
+func (l *Lc707LinkedList) Get(index int) int {
+    p := l.Next
 
     for p != nil && index >= 0 {
         if index == 0 {
@@ -46,20 +46,20 @@ func (this *Lc707LinkedList) Get(index int) int {
 }
 
 
-func (this *Lc707LinkedList) AddAtHead(val int)  {
-    p := this.Next
+func (l *Lc707LinkedList) AddAtHead(val int)  {
+    p := l.Next
     NewNode := Constructor()
     NewNode.Val = val 
     NewNode.Next = p 
-    this.Next = &NewNode
+    l.Next = &NewNode
 }
 
 
-func (this *Lc707LinkedList) AddAtTail(val int)  {
+func (l *Lc707LinkedList) AddAtTail(val int)  {
     NewNode := Constructor()
     NewNode.Val = val
 
-    p := this 
+    p := l 
     for p.Next != nil {
         p = p.Next
     }
@@ -69,16 +69,16 @@ func (this *Lc707LinkedList) AddAtTail(val int)  {
 }
 
 
-func (this *Lc707LinkedList) AddAtIndex(index int, val int)  {
+func (l *Lc707LinkedList) AddAtIndex(index int, val int)  {
     NewNode := Constructor()
     NewNode.Val = val
     // 插入到index节点之前, 如果index等于链表长度，则追加到末尾，如果比长度更大，则不会插入
-    p := this.Next
+    p := l.Next
     target := index - 1
 
     // 头节点
     if index == 0 {
-        this.AddAtHead(val)
+        l.AddAtHead(val)
         return 
     }
 
@@ -95,17 +95,17 @@ func (this *Lc707LinkedList) AddAtIndex(index int, val int)  {
 }
 
 
-func (this *Lc707LinkedList) DeleteAtIndex(index int)  {
+func (l *Lc707LinkedList) DeleteAtIndex(index int)  {
     // 只剩虚拟头节点
-    if this.Next == nil {
+    if l.Next == nil {
         return 
     }
 
-    p := this.Next
+    p := l.Next
 
     // 删除头节点
     if index == 0 {
-        this.Next = p.Next
+        l.Next = p.Next
         return 
     }
 
