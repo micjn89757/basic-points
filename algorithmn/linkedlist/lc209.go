@@ -2,12 +2,8 @@ package linkedlist
 
 // 删除链表中等于给定值 val 的所有节点。
 
-type Lc209ListNode struct {
-	Val  int
-	Next *Lc209ListNode
-}
 
-func removeElements(head *Lc209ListNode, val int) *Lc209ListNode {
+func removeElements(head *ListNode, val int) *ListNode {
 	p := head
 
 	// 处理头节点

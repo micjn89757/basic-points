@@ -1,35 +1,37 @@
 package linkedlist
 
-import (
-	"testing"
-)
+import "testing"
 
-type lc24Example struct {
+type lc19Example struct {
 	input []int
+	target int
 	expect []int
 }
 
 
-var lc24Test = map[string]lc24Example {
+var lc19Test = map[string]lc19Example {
 	"example1": {
-		input: []int{1, 2, 3, 4},
-		expect: []int{2, 1, 4, 3},
+		input: []int{1, 2, 3, 4, 5},
+		target: 2,
+		expect: []int{1, 2, 3, 5},
 	}, 
 	"example2": {
-		input: []int{},
+		input: []int{1},
+		target: 1,
 		expect: []int{},
 	},
 	"example3": {
-		input: []int{1},
+		input: []int{1, 2},
+		target: 1,
 		expect: []int{1},
 	},
 }
 
 
-func TestSwapPairs(t *testing.T) {
-	for name, te := range lc24Test {
+func TestRemoveNthFromEnd(t *testing.T) {
+	for name, te := range lc19Test {
 		t.Run(name, func(t *testing.T) {
-			res := swapPairs(GenerateLinkedList(te.input))
+			res := removeNthFromEnd(GenerateLinkedList(te.input), te.target)
 			expect := GenerateLinkedList(te.expect)
 
 			for res != nil && expect != nil {

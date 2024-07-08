@@ -30,9 +30,9 @@ var lc206Test = map[string]lc206Example {
 func TestReverseList(t *testing.T) {
 	for name, te := range lc206Test {
 		t.Run(name, func(t *testing.T) {
-			res := GenerateLc206LinkedList(te.input)
+			res := GenerateLinkedList(te.input)
 			res = reverseList(res)
-			exp := GenerateLc206LinkedList(te.expect)
+			exp := GenerateLinkedList(te.expect)
 
 			for res != nil && exp != nil {
 				if res.Val != exp.Val {

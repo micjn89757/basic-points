@@ -1,14 +1,10 @@
 package linkedlist 
 
 
-type Lc24ListNode struct {
-	Val int 
-	Next *Lc24ListNode
-}
 
-func swapPairs(head *Lc24ListNode) *Lc24ListNode {
+func swapPairs(head *ListNode) *ListNode {
 	// 创建虚拟头节点
-	dumpHead := &Lc24ListNode{}
+	dumpHead := &ListNode{}
 	dumpHead.Next = head 
 
 	tmp := dumpHead

@@ -1,15 +1,19 @@
 package linkedlist
 
+type ListNode struct {
+	Val int
+	Next *ListNode
+}
+
 // GenerateLinkedList 根据传入的数组生成链表
-// TODO: 适配更多类型
-func GenerateLc206LinkedList(arr []int) *Lc206ListNode {
+func GenerateLinkedList(arr []int) *ListNode {
 	if len(arr) == 0 {
 		return nil
 	}
 
-	var head, p *Lc206ListNode
+	var head, p *ListNode
 	for _, v :=  range arr {
-		NewNode := &Lc206ListNode{
+		NewNode := &ListNode{
 			Val: v,
 			Next: nil,
 		}
@@ -26,27 +30,3 @@ func GenerateLc206LinkedList(arr []int) *Lc206ListNode {
 	return head
 }
 
-
-func GenerateLc24LinkedList(arr []int) *Lc24ListNode {
-	if len(arr) == 0 {
-		return nil
-	}
-
-	var head, p *Lc24ListNode
-	for _, v :=  range arr {
-		NewNode := &Lc24ListNode{
-			Val: v,
-			Next: nil,
-		}
-
-		if head == nil {
-			head = NewNode
-			p = head
-		} else {
-			p.Next = NewNode
-			p = p.Next
-		}
-	}
-
-	return head
-}

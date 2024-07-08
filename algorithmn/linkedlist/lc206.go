@@ -1,14 +1,9 @@
 package linkedlist
 
-type Lc206ListNode struct {
-	Val int 
-	Next *Lc206ListNode
-}
 
-
-func reverseList(head *Lc206ListNode) *Lc206ListNode {
+func reverseList(head *ListNode) *ListNode {
 	cur := head 
-	var pre *Lc206ListNode
+	var pre *ListNode
 
 	for head != nil {
 		head = head.Next
