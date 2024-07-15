@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// TODO: 有点问题，允许测试便知
+// TODO: 有点问题，测试便知
 // 多个文件合并
 // 通过channel实现类似WaitGroup的操作
 // 将channel作为多个协程的缓冲区，能够缓解上下游速度差

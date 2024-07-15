@@ -9,6 +9,10 @@ import (
 // 全局等待组遍历
 var wg sync.WaitGroup
 
+// 单向通道
+// <- chan int 只接受通道
+// chan <- int 只发送通道
+
 // len获取通道中元素数量，cap获取容量
 // 无缓冲channel,同步channel
 func nioChannel() {
@@ -39,6 +43,8 @@ func traveseChannel() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+		defer close(ch)
+
 		for i := 0; i < 10; i++ {
 			ch <- i
 		}
@@ -46,7 +52,6 @@ func traveseChannel() {
 		for i := 0; i < 10; i++ {
 			ch <- i
 		}
-		defer close(ch)
 	}()
 
 	wg.Add(1)
@@ -60,7 +65,7 @@ func traveseChannel() {
 
 		// 接收方式2
 		// for {
-		// 	e, ok := <- ch 
+		// 	e, ok := <- ch  // 通道关闭返回false
 		// 	if ok {
 		// 		fmt.Println(e)
 		// 	} else {
