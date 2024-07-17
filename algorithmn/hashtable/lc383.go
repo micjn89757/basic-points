@@ -4,11 +4,13 @@ func canConstruct(ransomNote string, magazine string) bool {
     tmp := make(map[rune]int, len(ransomNote))
 
     for _, r := range ransomNote {
-        if _, ok :=  tmp[r]; ok {
+        if _, ok := tmp[r]; ok {
             tmp[r]++
-        } else {
-            tmp[r] = 1
-        }
+            continue
+        } 
+        
+        tmp[r] = 1
+        
     }
 
 
