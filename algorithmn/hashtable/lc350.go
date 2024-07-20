@@ -8,7 +8,7 @@ func intersect(nums1 []int, nums2 []int) []int {
 
 
     for _, v := range nums1 {
-        if _, ok := tmp[v]; ok {
+        if tmp[v] != 0 {
             tmp[v]++
         } else {
             tmp[v] = 1
