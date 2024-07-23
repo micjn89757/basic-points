@@ -28,6 +28,7 @@ func kmp(a, b string) []int {
 		if j == len(b) {
 			// 记录位置
 			res = append(res, i - len(b) + 1)
+			j = 0
 		}
 	}
 
