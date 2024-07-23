@@ -1,0 +1,47 @@
+syntax = "proto3";  // 表示使用proto3语法
+
+// 定义一个消息类型
+message SearchRequest {
+    // 下面示例的字段都是标量类型
+    string query = 1;   // 每一个字段都有一个类型和名称以及一个编号(唯一)
+    int32 page_number = 2;
+    int32 results_per_page = 3;
+    enum Corpus { // 定义枚举类型，零必须是第一个元素
+        UNIVERSAL = 0;
+        WEB = 1;
+        IMAGES = 2;
+        LOCAL = 3;
+        NEWS = 4;
+        PRODUCTS = 5;
+    }
+}
+
+message MyMessage1 {
+    enum EnumAllowingAlias{
+        option allow_alias = true; // 允许枚举类型分配相同的值给不同的枚举常量
+        UNKNOWN = 0;
+        STARTER = 1;
+        RUNNING = 1;
+
+        reserved "EnumAllowingAlias";
+    }
+}
+
+
+// 添加更多消息类型, 这个类型是对应Request的应答格式
+message SearcgResponse {
+    repeated Result result = 1;
+}
+
+message Result {
+    string url = 1;
+    string title = 2;
+    repeated string snippets = 3;
+}
+
+
+// 如果你通过完全删除字段或将其注释掉来更新消息类型，那么未来的用户在对该类型进行自己的更新时可以重用字段号。如果其他人以后加载旧版本的相同.proto文件，这可能会导致严重的问题，包括数据损坏，隐私漏洞等等。确保这种情况不会发生的一种方法是指定已删除字段的字段编号(和/或名称，这也可能导致 JSON 序列化问题)是保留的（reserved）。如果将来有任何用户尝试使用这些字段标识符，protocol buffer编译器将发出提示。
+// message Foo {
+//     reserved 2, 15, 9 to 11;
+//     reserved "foo", "bar";
+// }
