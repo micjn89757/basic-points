@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"strings"
 
-	// "strings"
 	"time"
 )
 
@@ -82,7 +81,20 @@ func (logger *Logger) Info(msg string, field ...core.Field) {
 }
 
 func (logger *Logger) Debug(msg string, field ...core.Field) {
+	if core.DebugLevel>= EncodeLevel {
+		// 检查是否需要日志分割
+		if logger.rotate {
+			if logOut := logger.rotateLog.CheckAndChangeLogFile(logger.ws); logOut != nil {
+				logger.ws = core.AddSync(io.MultiWriter(logOut, os.Stderr))
+			}
+		}
 
+		// 创建打印的基本信息
+		entry := core.NewEntry(core.DebugLevel, time.Now(), msg)
+
+		// 日志输出
+		logger.write(entry, field...)
+	}
 }
 
 

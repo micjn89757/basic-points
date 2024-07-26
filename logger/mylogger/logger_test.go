@@ -15,8 +15,10 @@ func TestMylogger(t *testing.T) {
 		t.Error(err)
 	}
 
+	EncodeLevel = core.InfoLevel
 	logger := NewLogger(WithEncoding("json"), WithRotate("./log/demo.log", time.Hour * 24), WithWriter(os.Stderr, file))
 	logger.Info("dddd", core.Uint64("ddd", 14))
+	logger.Debug("ddd", core.Uint64("ddd", 16))
 }
 
 
