@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+// 生成的go package的路径
+option go_package = ".;proto"; // 这里表示在当前路径下，包名是proto
+// 例如 common/proto  这是相对路径的表示，会从当前路径下建立common/proto
+
+import "base.proto"; // 导入其他proto的message
+
+// 下面两种要指明完整路径，并且已经默认生成了
+import "google/protobuf/empty.proto"; // 导入默认的包
+import "google/protobuf/timestamp.proto"; // 导入默认的包来表示时间戳
+
+// 定义服务
+service Greeter {
+    rpc SayHello (HelloRequest) returns (HelloResponse); // 定义rpc接口
+    rpc Ping(google.protobuf.Empty) returns (Pong); // 注意如果要使用导入字段，也要把base.proto进行编译
+}
+
+message HelloRequest {
+    string name = 1; // 1是编号不是值
+    int32 age = 2;
+    repeated string courses = 3;  // 对应于go中的[]String
+    map<string, string> mp = 4; // map类型
+}
+
+
+message HelloResponse {
+    string reply = 1;
+
+    // 嵌套message
+    message Result {
+        string name = 1;
+        string url = 2;
+    }
+
+    repeated Result data = 2;
+    Gender g = 3;
+}
+
+
+// 枚举类型
+enum Gender {
+    MALE = 0;
+    FEMALE = 1;
+}

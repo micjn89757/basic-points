@@ -1,7 +1,7 @@
 package main
 
 import (
-	"inet/httpapi"
+	"inet/http"
 	"log"
 )
 

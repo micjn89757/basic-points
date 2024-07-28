@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+
+// 抽离公共用的message
+
+// message Empty {
+
+// }
+
+
+message Pong {
+    string id = 1;
+}

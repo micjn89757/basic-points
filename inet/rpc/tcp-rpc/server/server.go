@@ -17,7 +17,7 @@ func NewServer(serv *Service) *Server {
 }
 
 func (s *Server) Run() {
-	rpc.Register(s.Serv) // 注册为一个服务
+	rpc.Register(s.Serv) // 注册为一个rpc服务
 	// rpc.HandleHTTP()	// 基于HTTP协议
 	listener, err := net.Listen("tcp", ":9091")
 	if err != nil {

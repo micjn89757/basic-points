@@ -1,6 +1,6 @@
 package main
 
-import "inet/rpc/grpc/hello-grpc/server"
+import "inet/rpc/grpc/metadata-grpc/server"
 
 func main() {
 	server := &server.Server{}
