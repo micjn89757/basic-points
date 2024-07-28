@@ -4,7 +4,6 @@ import (
 	"context"
 	"inet/rpc/grpc/grpc-validate/proto"
 	"net"
-	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -17,13 +16,26 @@ type Server struct{
 
 
 func (s *Server) SayHello(ctx context.Context, request *proto.Person) (*proto.Person, error) {
-	time.Sleep(time.Second * 5)
 	return &proto.Person{Id: 5000}, status.Errorf(codes.NotFound, "invalid email:%s", request.Email)
 }
 
+type Validator interface { // protoc-gen-validate会为每一个使用校验的消息创建Validate方法
+	Validate() error
+}
 
 func (s *Server) Run() {
-	grpcServ := grpc.NewServer()
+	interceptor := func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+		if r, ok := req.(Validator); ok {
+			if err := r.Validate(); err != nil {
+				return nil, status.Error(codes.InvalidArgument, err.Error())
+			}
+		}
+
+		return handler(ctx, req)
+	}
+
+	opt := grpc.UnaryInterceptor(interceptor)
+	grpcServ := grpc.NewServer(opt)
 	proto.RegisterGreeterServer(grpcServ, &Server{})
 	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {

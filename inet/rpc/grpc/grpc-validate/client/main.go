@@ -31,8 +31,9 @@ func main() {
 	defer cancel()
 
 	r, err := Client.SayHello(ctx, &proto.Person{
-		Id: 1000,
+		Id: 1,
 		Mobile: "156511651",
+		Email: "bobby@qq.com",
 	})
 	if err != nil {
 		st, ok := status.FromError(err)
