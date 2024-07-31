@@ -12,12 +12,12 @@ func sumOfLeftLeaves(root *BinaryTreeNode) int {
     }
 
     // 左子树的左节点和右子树的左叶子节点
-    left := sumOfLeftLeaves(root.Left)
-    if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil { // 只需要左叶子节点
-        left = root.Left.Val
+    left := sumOfLeftLeaves(root.LeftNode)
+    if root.LeftNode != nil && root.LeftNode.LeftNode == nil && root.LeftNode.RightNode == nil { // 只需要左叶子节点
+        left = root.LeftNode.Data
     }
 
-    right := sumOfLeftLeaves(root.Right)
+    right := sumOfLeftLeaves(root.RightNode)
     
     return left + right
 }
