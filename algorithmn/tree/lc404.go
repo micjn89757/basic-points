@@ -1,0 +1,23 @@
+package tree
+
+
+/*
+给定二叉树的根节点 root ，返回所有左叶子之和
+*/
+
+
+func sumOfLeftLeaves(root *BinaryTreeNode) int {
+    if root == nil {
+        return 0
+    }
+
+    // 左子树的左节点和右子树的左叶子节点
+    left := sumOfLeftLeaves(root.Left)
+    if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil { // 只需要左叶子节点
+        left = root.Left.Val
+    }
+
+    right := sumOfLeftLeaves(root.Right)
+    
+    return left + right
+}

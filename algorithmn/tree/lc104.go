@@ -10,7 +10,7 @@ func RecurMaxDepth(root *BinaryTreeNode) int {
 	if root == nil {
 		return 0
 	}
-
+	
 	return max(RecurMaxDepth(root.LeftNode), RecurMaxDepth(root.RightNode)) + 1
 }
 

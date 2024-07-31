@@ -52,7 +52,7 @@ func Handle1() int {
 
 
 
-// 方案2
+// 方案2，直接使用time.After
 func Handle2() int {
 	workDone := make(chan int, 1)
 	go func() {
@@ -71,7 +71,7 @@ func Handle2() int {
 }
 
 
-
+// 方案3，使用context withcancel
 func Handle3() int {
 	// 通过显示sleep再调用cancel来实现对函数的超时控制
 	ctx, cancel := context.WithCancel(context.Background())

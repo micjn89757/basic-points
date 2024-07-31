@@ -74,7 +74,7 @@ func RecurPreOrderTraversal(cur *BinaryTreeNode, res *[]int) {
 	if cur == nil { // 遍历到叶子节点
 		return
 	}
-
+	
 	*res = append(*res, cur.Data)
 	RecurPreOrderTraversal(cur.LeftNode, res)
 	RecurPreOrderTraversal(cur.RightNode, res)
