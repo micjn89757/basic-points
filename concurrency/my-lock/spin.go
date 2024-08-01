@@ -1,7 +1,7 @@
 /*
 实现一个自旋锁，适用于使用者保持锁时间比较短，因此才选择自旋而不是睡眠
 */
-package lock
+package mylock
 
 import (
 	"runtime"
@@ -10,11 +10,11 @@ import (
 )
 
 
-type spinLock uint32
+type SpinLock uint32
 
 const maxBackoff = 16	// 自旋锁
 
-func (sl *spinLock) Lock() {	// 上锁
+func (sl *SpinLock) Lock() {	// 上锁
 	backoff := 1
 	for !atomic.CompareAndSwapUint32((*uint32)(sl), 0, 1) { // 这个操作会尝试将0->1，但是如果发现spinLock已经为1，就代表已经被其他协程占用了
 		for i := 0; i < backoff; i++ {	// 开始自旋，调用者不会睡眠，而一直循环等待
@@ -29,12 +29,12 @@ func (sl *spinLock) Lock() {	// 上锁
 }
 
 
-func (sl *spinLock) Unlock() {	// 解锁
+func (sl *SpinLock) Unlock() {	// 解锁
 	atomic.StoreUint32((*uint32)(sl), 0)  // 持有者直接解锁即可
 }
 
 
 func NewSpinLock() sync.Locker {
-	return new(spinLock)
+	return new(SpinLock)
 }
 
