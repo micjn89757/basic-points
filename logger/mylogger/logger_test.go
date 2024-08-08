@@ -32,7 +32,7 @@ func BenchmarkLogger(b *testing.B) {
 	}
 }
 
-// mylogger  11252 ns/op	728 B/op	11 allocs/op
+// mylogger  10727 ns/op	544 B/op	7 allocs/op
 
 func BenchmarkLogrus(b *testing.B) {
 	file, _ := os.OpenFile("./log/demo.log", os.O_CREATE | os.O_APPEND | os.O_RDWR, 0666)
@@ -46,4 +46,4 @@ func BenchmarkLogrus(b *testing.B) {
 
 }
 
-//logrus	 34040 ns/op	 538 B/op	16 allocs/op
+//logrus	 21741 ns/op	 474 B/op	17 allocs/op

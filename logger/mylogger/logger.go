@@ -1,12 +1,11 @@
 package mylogger
 
 import (
+	"bytes"
 	"io"
 	"logger/mylogger/core"
 	"os"
 	"strconv"
-	"strings"
-
 	"time"
 )
 
@@ -101,63 +100,62 @@ func (logger *Logger) Debug(msg string, field ...core.Field) {
 
 // 写入日志，不使用marshallJSON，而是拼接字符串
 func (logger *Logger) write(entry *core.Entry, fields ...core.Field) {
-	var builder strings.Builder
-
-	builder.WriteRune('{')
+	buf := new(bytes.Buffer)
+	buf.WriteRune('{')
 
 	// 打印level 
 	level := entry.Level.CapitalString()
-	builder.WriteRune('"')
-	builder.WriteString("level")
-	builder.WriteString("\":")
-	builder.WriteString(level)
-	builder.WriteRune(',')
+	buf.WriteRune('"')
+	buf.WriteString("level")
+	buf.WriteString("\":")
+	buf.WriteString(level)
+	buf.WriteRune(',')
 
 	// 打印time
 	tim := entry.Time
-	builder.WriteRune('"')
-	builder.WriteString("time")
-	builder.WriteString("\":")
-	builder.WriteRune('"')
-	builder.WriteString(tim)
-	builder.WriteRune('"')
-	builder.WriteRune(',')
+	buf.WriteRune('"')
+	buf.WriteString("time")
+	buf.WriteString("\":")
+	buf.WriteRune('"')
+	buf.WriteString(tim)
+	buf.WriteRune('"')
+	buf.WriteRune(',')
 
 
 	// 打印msg
 	msg := entry.Message
-	builder.WriteRune('"')
-	builder.WriteString("msg")
-	builder.WriteString("\":")
-	builder.WriteRune('"')
-	builder.WriteString(msg)
-	builder.WriteRune('"')
-	builder.WriteRune(',')
+	buf.WriteRune('"')
+	buf.WriteString("msg")
+	buf.WriteString("\":")
+	buf.WriteRune('"')
+	buf.WriteString(msg)
+	buf.WriteRune('"')
+	buf.WriteRune(',')
 	
 	for _, field := range fields {
 		// TODO： 根据不同的类型
-		builder.WriteRune('"')
-		builder.WriteString(field.Key)
-		builder.WriteString("\":")
-		builder.WriteString(field.String) // 数字不需要双引号
-		builder.WriteRune(',')
+		buf.WriteRune('"')
+		buf.WriteString(field.Key)
+		buf.WriteString("\":")
+		buf.WriteString(field.String) // 数字不需要双引号
+		buf.WriteRune(',')
 	}
 
 
 	// 打印Caller
 	caller := entry.Caller
-	builder.WriteRune('"')
-	builder.WriteString("caller")
-	builder.WriteString("\":")
-	builder.WriteRune('"')
-	builder.WriteString(caller.FC)
-	builder.WriteRune(':')
-	builder.WriteString(strconv.Itoa(caller.Line))
-	builder.WriteRune('"')
+	buf.WriteRune('"')
+	buf.WriteString("caller")
+	buf.WriteString("\":")
+	buf.WriteRune('"')
+	buf.WriteString(caller.FC)
+	buf.WriteRune(':')
+	buf.WriteString(strconv.Itoa(caller.Line))
+	buf.WriteRune('"')
 
 	
-	builder.WriteRune('}')
-	// builder.WriteByte('\n')
-	logger.ws.Write([]byte(builder.String()))
+	buf.WriteRune('}')
+	// buf.WriteByte('\n')
+	logger.ws.Write(buf.Bytes())
 }
 

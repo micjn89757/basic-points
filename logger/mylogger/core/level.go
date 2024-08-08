@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"log/slog"
 )
 
 // 存放log的级别
@@ -55,5 +54,4 @@ func (l Level) CapitalString() string {
 		return fmt.Sprintf("Level(%d)", l)
 	}
 
-	slog.Info()
 }
