@@ -14,19 +14,19 @@ func TestMapCmp(t *testing.T) {
  	
 	runtime.GOMAXPROCS(2)
 	// 6个协程, 写100次, 读100次
-	// cmp := NewConcurrentHashMap[int](6, 600)
-	cmps := NewConcurrentHashMapSpin[int](6, 600)
+	cmp := NewConcurrentHashMap[int](6, 600)	// 1518
+	// cmps := NewConcurrentHashMapSpin[int](6, 600)		// 1272
 	begin := time.Now()
 	wg.Add(6)
 	for i := 0; i < 6; i++ {
 		go func() {
 			defer wg.Done()
 			for i := 0; i < 1000000; i++ {
-				cmps.SetS(i, i)
+				cmp.Set(i, i)
 			}
 
 			for i := 0; i < 1000000; i++ {
-				cmps.GetS(i)
+				cmp.Get(i)
 			}
 		}()
 	}
@@ -34,5 +34,5 @@ func TestMapCmp(t *testing.T) {
 
 	totalTime := time.Since(begin).Milliseconds()
 
-	t.Log(totalTime)
+	t.Log(totalTime) 
 }
