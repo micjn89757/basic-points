@@ -1,5 +1,6 @@
 package string
 
+
 /*
 KMP解决的问题：字符串匹配
 */
@@ -8,6 +9,7 @@ func kmp(a, b string) []int {
 	if len(b) == 0 {
 		return nil
 	}
+
 
 	next := getNext(b)
 	res := make([]int, 0)
