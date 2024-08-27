@@ -4,7 +4,7 @@ package handler
 import (
 	"net/http"
 
-	"inet/microserver/gozerodemo/demo/internal/svc"
+	"inet/microserver/gozero/httpdemo/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -15,7 +15,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/from/:name",
-				Handler: DemoHandler(serverCtx),
+				Handler: HttpdemoHandler(serverCtx),
 			},
 		},
 	)

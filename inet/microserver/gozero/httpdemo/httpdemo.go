@@ -4,15 +4,15 @@ import (
 	"flag"
 	"fmt"
 
-	"inet/microserver/gozerodemo/demo/internal/config"
-	"inet/microserver/gozerodemo/demo/internal/handler"
-	"inet/microserver/gozerodemo/demo/internal/svc"
+	"inet/microserver/gozero/httpdemo/internal/config"
+	"inet/microserver/gozero/httpdemo/internal/handler"
+	"inet/microserver/gozero/httpdemo/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/demo-api.yaml", "the config file")
+var configFile = flag.String("f", "etc/httpdemo-api.yaml", "the config file")
 
 func main() {
 	flag.Parse()

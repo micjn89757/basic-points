@@ -64,8 +64,6 @@ func syncMap() {
 }
 
 
-
-
 // 自行实现并发读写的map，借鉴ConcurrentHashMap，使用读写锁
 type ConcurrentHashMap[T comparable] struct { // map支持的key类型就是comparable的类型
 	mps 	[]map[T]any 	// 由多个小map构成

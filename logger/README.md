@@ -9,3 +9,10 @@
   - 太久的日志需要定期处理
 
 > 常见日志库: go.uber.org/zap   logrus  log
+
+
+关于TCP协议的端画下力摆还错误的是
+A.端口号的取值范围为065535，
+B.IP地址和端口号组成了我们的Socket,Socket是网缁运行程序间双间通信链路的终结点，是TCP和UDP的基础。
+C.常用协议使用的端口:HTTP:8O，FTP:21,TELNET:23
+D.在http:/192 168.0.100/webservice服务中，web服务发布实际并未占用端口号

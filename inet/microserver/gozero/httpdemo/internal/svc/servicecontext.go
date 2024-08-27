@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"inet/microserver/gozerodemo/demo/internal/config"
+	"inet/microserver/gozero/httpdemo/internal/config"
 )
 
 type ServiceContext struct {
