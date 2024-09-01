@@ -18,7 +18,7 @@ type Packer struct {
 	ByteOrder binary.ByteOrder	// 转化byte流的方式:大端还是小端，注意client和server和方式要一致
 }
 
-// 数据段长度记录 2B + 数据本身
+// 数据段长度记录: 数据长度2B + 数据本身（变长）
 func (p *Packer) Pack(msg string) ([]byte, error) {
 	// 数据包长度转换成uint16  2B 
 	len := uint16(len(msg) + 2)
