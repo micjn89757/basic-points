@@ -1,0 +1,7 @@
+## json序列化和反序列化
+
+标准库json序列化背后使用的技术是反射, 在运行时动态获取结构体成员变量名称、tag等
+json在Marshal和Unmarshal时，如果某一个成员变量实现了Marshaller接口而且不是nil则Marshal会调用其MarshalJSON方法来生成JSON, UnmarshalJSON同理。
+如果没有实现Marshaller接口，但是这个值实现了encoding，则调用其MarshallText方法并将结果编码为字符串
+详见官方文档
+>字节不使用反射技术写了一个更快的json序列化包: sonic, 使用方式和标准库一样, 效率更高，推荐使用

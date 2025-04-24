@@ -1,3 +1,0 @@
-Name: mysql.conn
-DataSource: djn:asdjkl@tcp(192.168.197.133:3306)/atguigudb?parseTime=true 
-
