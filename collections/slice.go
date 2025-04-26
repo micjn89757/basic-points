@@ -17,11 +17,10 @@ func copy(oldSlice []int, newSlice []int) error {
 
 	for i := 0; i < len(oldSlice); i++ {
 		newSlice[i] = oldSlice[i]
-	}	
+	}
 
 	return nil
 }
-
 
 // extend 将新切片中的元素追加到旧切片中
 func extend(srcSlice []int, newSlice []int) (error, []int) {
@@ -31,13 +30,11 @@ func extend(srcSlice []int, newSlice []int) (error, []int) {
 
 	srcSlice = append(srcSlice, newSlice...)
 
-	return nil, srcSlice 
+	return nil, srcSlice
 }
 
-
-
-// DeleteEleFromSlice 根据值从切片中删除元素, 删除元素后的新切片长度等于旧切片长度
-func DeleteEleInSlice[T uint64 | int64](target T, s []T) []T {
+// DeleteEleFromSlice 根据值从切片中删除元素(根据元素值), 删除元素后的新切片长度等于旧切片长度
+func DeleteEleInSlice[T uint64 | int64 | int | int8 | int16](target T, s []T) []T {
 	newS := make([]T, len(s))
 	newSIndex := 0
 

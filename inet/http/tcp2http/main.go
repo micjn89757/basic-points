@@ -2,12 +2,10 @@ package main
 
 import (
 	"bufio"
-	"cmp"
 	"fmt"
 	"log/slog"
 	"net"
 	"net/http"
-	"slices"
 	"time"
 )
 

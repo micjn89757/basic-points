@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+
+package book;// protobuf中的包名，防止冲突，以被用作go包名，除非定义了option go_package
+
+
+option go_package = "buffers/grpc-starter/proto/book";// 生成go代码的路径
+// 引入同目录下的protobuf文件（注意起始位置为--proto_path的下层）
+import "book/price.proto";
+import "author/author.proto";
+// 引入google/protobuf/timestamp.proto文件
+import "google/protobuf/timestamp.proto";
+
+message Book {
+    string title = 1;// 类型，字段，唯一编号（1-5编号需要一个字节编码，16-2047需要两个字节）
+    Price price = 2;// 编号不能使用19000到19999
+    author.Info authorInfo = 3;  // 需要带package前缀
+    repeated string pod = 4;  // 数组
+    google.protobuf.Timestamp date = 5;  // 注意包名前缀
+}

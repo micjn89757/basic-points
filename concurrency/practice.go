@@ -10,7 +10,7 @@ import (
 var wg sync.WaitGroup
 
 // 单向通道
-// <- chan int 只接受通道
+// <- chan int 只接手通道
 // chan <- int 只发送通道
 
 // len获取通道中元素数量，cap获取容量
