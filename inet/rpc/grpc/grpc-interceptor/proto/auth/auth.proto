@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package auth;
+
+import "user.proto";
+
+option go_package = "grpc-starter/proto/auth";
+
+// 服务名
+service AuthService {
+    // Login 方法
+    rpc Login(LoginRequest) returns (LoginResponse);
+
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+}
+
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+
+message LoginResponse {
+    string token = 1;
+    user.User user = 2;
+}
+
+
+message RegisterRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message RegisterResponse {}
+

@@ -1,0 +1,68 @@
+package server
+
+import (
+	"context"
+	"fmt"
+	"grpc-interceptor/proto/auth"
+	"grpc-interceptor/service"
+	"net"
+	"time"
+
+	"google.golang.org/grpc"
+)
+
+func NewGRPCServer() error {
+	// 创建监听端口
+    tcpAdd, err := net.ResolveTCPAddr("tcp", ":8000")
+	if err != nil {
+		return err 
+	}
+
+	conn, err := net.ListenTCP("tcp", tcpAdd)
+	if err != nil {
+		return err 
+	}
+
+	// 创建grpc服务器，绑定监听端口, 并添加一元中间件
+	// srv := grpc.NewServer(
+	// 	grpc.UnaryInterceptor(func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+	// 		start := time.Now()
+	// 		// 前置处理：耗时、验证、日志
+	// 		resp, err = handler(ctx, req)
+	// 		fmt.Println("耗时：", time.Since(start))
+	// 		return resp, err
+	// 	}),
+	// )
+
+	// 创建grpc服务器，绑定监听端口, 并添加链式调用一元中间件
+	srv := grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+				start := time.Now()
+				// 前置处理：耗时、验证、日志
+				resp, err = handler(ctx, req)
+				fmt.Println("耗时：", time.Since(start))
+				return resp, err
+			},
+			func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+				start := time.Now()
+				// 前置处理：耗时、验证、日志
+				resp, err = handler(ctx, req)
+				fmt.Println("耗时：", time.Since(start))
+				return resp, err
+			},
+		),
+	)
+	
+	
+	// 注册服务
+	authServer := &service.AuthServer{}
+	auth.RegisterAuthServiceServer(srv, authServer)
+	err = srv.Serve(conn)
+	if err != nil {
+		return err
+	}
+
+
+	return nil
+}

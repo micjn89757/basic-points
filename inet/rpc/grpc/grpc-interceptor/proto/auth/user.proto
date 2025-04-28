@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "grpc-starter/proto/auth";
+
+
+message User {
+    string name = 1;
+    string password = 2;
+}
