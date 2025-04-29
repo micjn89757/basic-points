@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+
+package proto;
+
+option go_package = "grpc-stream/proto";
+
+
+// 定义rpc服务
+service BlogService {
+    rpc LotsOfReplies(Request) returns (stream Response);
+}
+
+
+message Request {
+    string name = 1;
+}
+
+
+message Response {
+    string reply = 1;
+}

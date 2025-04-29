@@ -6,10 +6,10 @@ import (
 	"grpc-interceptor/proto/auth"
 	"sync"
 	"sync/atomic"
-	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 )
 
 func NewClient() error {
@@ -33,14 +33,17 @@ func NewClient() error {
 	}
 	client := cp.Get()
 
+	// 生成metadata
+	ctx := metadata.NewOutgoingContext(context.Background(), metadata.Pairs("bearer", "123"))
+
 	// 执行RPC调用并打印收到的响应数据
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
+	// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	// defer cancel()
 
 	// 远程调用
 	r, err := client.Login(ctx, &auth.LoginRequest{})
 	if err != nil {
-		return nil 
+		return err 
 	}
 
 	fmt.Printf("resp: %s", r.GetUser())
