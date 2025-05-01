@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BlogService_LotsOfReplies_FullMethodName = "/proto.BlogService/LotsOfReplies"
+	BlogService_LotsOfReplies_FullMethodName  = "/proto.BlogService/LotsOfReplies"
+	BlogService_LotsOfReplies1_FullMethodName = "/proto.BlogService/LotsOfReplies1"
+	BlogService_LotsOfReplies2_FullMethodName = "/proto.BlogService/LotsOfReplies2"
 )
 
 // BlogServiceClient is the client API for BlogService service.
@@ -29,6 +31,8 @@ const (
 // 定义rpc服务
 type BlogServiceClient interface {
 	LotsOfReplies(ctx context.Context, in *Request, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Response], error)
+	LotsOfReplies1(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[Request, Response], error)
+	LotsOfReplies2(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[Request, Response], error)
 }
 
 type blogServiceClient struct {
@@ -58,6 +62,32 @@ func (c *blogServiceClient) LotsOfReplies(ctx context.Context, in *Request, opts
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type BlogService_LotsOfRepliesClient = grpc.ServerStreamingClient[Response]
 
+func (c *blogServiceClient) LotsOfReplies1(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[Request, Response], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &BlogService_ServiceDesc.Streams[1], BlogService_LotsOfReplies1_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[Request, Response]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type BlogService_LotsOfReplies1Client = grpc.ClientStreamingClient[Request, Response]
+
+func (c *blogServiceClient) LotsOfReplies2(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[Request, Response], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &BlogService_ServiceDesc.Streams[2], BlogService_LotsOfReplies2_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[Request, Response]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type BlogService_LotsOfReplies2Client = grpc.BidiStreamingClient[Request, Response]
+
 // BlogServiceServer is the server API for BlogService service.
 // All implementations must embed UnimplementedBlogServiceServer
 // for forward compatibility.
@@ -65,6 +95,8 @@ type BlogService_LotsOfRepliesClient = grpc.ServerStreamingClient[Response]
 // 定义rpc服务
 type BlogServiceServer interface {
 	LotsOfReplies(*Request, grpc.ServerStreamingServer[Response]) error
+	LotsOfReplies1(grpc.ClientStreamingServer[Request, Response]) error
+	LotsOfReplies2(grpc.BidiStreamingServer[Request, Response]) error
 	mustEmbedUnimplementedBlogServiceServer()
 }
 
@@ -77,6 +109,12 @@ type UnimplementedBlogServiceServer struct{}
 
 func (UnimplementedBlogServiceServer) LotsOfReplies(*Request, grpc.ServerStreamingServer[Response]) error {
 	return status.Errorf(codes.Unimplemented, "method LotsOfReplies not implemented")
+}
+func (UnimplementedBlogServiceServer) LotsOfReplies1(grpc.ClientStreamingServer[Request, Response]) error {
+	return status.Errorf(codes.Unimplemented, "method LotsOfReplies1 not implemented")
+}
+func (UnimplementedBlogServiceServer) LotsOfReplies2(grpc.BidiStreamingServer[Request, Response]) error {
+	return status.Errorf(codes.Unimplemented, "method LotsOfReplies2 not implemented")
 }
 func (UnimplementedBlogServiceServer) mustEmbedUnimplementedBlogServiceServer() {}
 func (UnimplementedBlogServiceServer) testEmbeddedByValue()                     {}
@@ -110,6 +148,20 @@ func _BlogService_LotsOfReplies_Handler(srv interface{}, stream grpc.ServerStrea
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type BlogService_LotsOfRepliesServer = grpc.ServerStreamingServer[Response]
 
+func _BlogService_LotsOfReplies1_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(BlogServiceServer).LotsOfReplies1(&grpc.GenericServerStream[Request, Response]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type BlogService_LotsOfReplies1Server = grpc.ClientStreamingServer[Request, Response]
+
+func _BlogService_LotsOfReplies2_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(BlogServiceServer).LotsOfReplies2(&grpc.GenericServerStream[Request, Response]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type BlogService_LotsOfReplies2Server = grpc.BidiStreamingServer[Request, Response]
+
 // BlogService_ServiceDesc is the grpc.ServiceDesc for BlogService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -122,6 +174,17 @@ var BlogService_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "LotsOfReplies",
 			Handler:       _BlogService_LotsOfReplies_Handler,
 			ServerStreams: true,
+		},
+		{
+			StreamName:    "LotsOfReplies1",
+			Handler:       _BlogService_LotsOfReplies1_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "LotsOfReplies2",
+			Handler:       _BlogService_LotsOfReplies2_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "blog.proto",

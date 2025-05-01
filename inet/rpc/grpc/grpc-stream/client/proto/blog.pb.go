@@ -118,9 +118,11 @@ const file_blog_proto_rawDesc = "" +
 	"\aRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\" \n" +
 	"\bResponse\x12\x14\n" +
-	"\x05reply\x18\x01 \x01(\tR\x05reply2A\n" +
+	"\x05reply\x18\x01 \x01(\tR\x05reply2\xad\x01\n" +
 	"\vBlogService\x122\n" +
-	"\rLotsOfReplies\x12\x0e.proto.Request\x1a\x0f.proto.Response0\x01B\x13Z\x11grpc-stream/protob\x06proto3"
+	"\rLotsOfReplies\x12\x0e.proto.Request\x1a\x0f.proto.Response0\x01\x123\n" +
+	"\x0eLotsOfReplies1\x12\x0e.proto.Request\x1a\x0f.proto.Response(\x01\x125\n" +
+	"\x0eLotsOfReplies2\x12\x0e.proto.Request\x1a\x0f.proto.Response(\x010\x01B\x13Z\x11grpc-stream/protob\x06proto3"
 
 var (
 	file_blog_proto_rawDescOnce sync.Once
@@ -141,9 +143,13 @@ var file_blog_proto_goTypes = []any{
 }
 var file_blog_proto_depIdxs = []int32{
 	0, // 0: proto.BlogService.LotsOfReplies:input_type -> proto.Request
-	1, // 1: proto.BlogService.LotsOfReplies:output_type -> proto.Response
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	0, // 1: proto.BlogService.LotsOfReplies1:input_type -> proto.Request
+	0, // 2: proto.BlogService.LotsOfReplies2:input_type -> proto.Request
+	1, // 3: proto.BlogService.LotsOfReplies:output_type -> proto.Response
+	1, // 4: proto.BlogService.LotsOfReplies1:output_type -> proto.Response
+	1, // 5: proto.BlogService.LotsOfReplies2:output_type -> proto.Response
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name

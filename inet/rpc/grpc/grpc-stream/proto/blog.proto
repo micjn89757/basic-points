@@ -8,7 +8,9 @@ option go_package = "grpc-stream/proto";
 
 // 定义rpc服务
 service BlogService {
-    rpc LotsOfReplies(Request) returns (stream Response);
+    rpc LotsOfReplies(Request) returns (stream Response); // 服务端流
+    rpc LotsOfReplies1(stream Request) returns (Response); // 客户端流
+    rpc LotsOfReplies2(stream Request) returns (stream Response); // 双流
 }
 
 
