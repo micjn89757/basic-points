@@ -99,7 +99,7 @@ func ClientServerStream(client pb.BlogServiceClient) {
 
 	go func() {
 		for {
-			// 接收服务端返回的数据 并打印
+			// 接收服务端返回的数据并打印
 			in, err := stream.Recv()
 			if err == io.EOF {
 				close(waitc)

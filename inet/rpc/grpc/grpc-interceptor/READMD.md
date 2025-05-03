@@ -28,8 +28,8 @@ go-grpc-middleware提供了很多现成的中间件可以使用
 > 相当于http报文的header, 存放很多key-value数据，key是string类型，value通常是[]string或二进制数据
 
 #### 接受数据——incoming
-
+从RPC请求的上下文中获取元数据:metadata.FromIncomingContext(ctx)
 
 #### 发送数据——outgoing
 使用NewOutgoingContext方法会覆盖原有的metadata
-使用AppendOutgoingContext是一种追加metadata模式, 保留上有服务的Metadata
+使用AppendOutgoingContext是一种追加metadata模式, 保留上有服务的Metadata,也要比NewOutgoingContext快
