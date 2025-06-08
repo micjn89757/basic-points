@@ -1,17 +1,15 @@
 /*
+func GetInstance() *singleton {
 	option模式
 */
 
 package designmodel
 
-
-
 type User struct {
-	Name string 
-	Age int 
+	Name string
+	Age  int
 	Tags map[string]string
 }
-
 
 // 第一种实现方式
 type UserOption func(*User)
@@ -20,12 +18,11 @@ func NewUser(opts ...UserOption) *User {
 	user := &User{}
 
 	for _, opt := range opts {
-		opt(user)	
+		opt(user)
 	}
 
-	return user 
+	return user
 }
-
 
 func WithName(name string) UserOption {
 	return func(u *User) {
@@ -35,13 +32,12 @@ func WithName(name string) UserOption {
 
 func WithAge(age int) UserOption {
 	return func(u *User) {
-		u.Age = age	
+		u.Age = age
 	}
 }
 
-
 func WithTag(k, v string) UserOption {
-	return func (u *User)  {
+	return func(u *User) {
 		if u.Tags == nil {
 			u.Tags = make(map[string]string)
 		}
@@ -58,8 +54,7 @@ type NameEqual struct {
 	Name string
 }
 
-
-func (ne * NameEqual) Judge (u *User) bool {
+func (ne *NameEqual) Judge(u *User) bool {
 	if ne.Name == u.Name {
 		return true
 	} else {
@@ -67,10 +62,9 @@ func (ne * NameEqual) Judge (u *User) bool {
 	}
 }
 
-
 type AgeBetween struct {
-	FromAge int 
-	ToAge int
+	FromAge int
+	ToAge   int
 }
 
 func (ab *AgeBetween) Judge(u *User) bool {
@@ -81,30 +75,27 @@ func (ab *AgeBetween) Judge(u *User) bool {
 	}
 }
 
-
 func UserQuery(filters ...FilterOption) []*User {
-	users := []*User{}	// 模拟从数据里检索出了一批User
+	users := []*User{} // 模拟从数据里检索出了一批User
 	filteredUsers := make([]*User, 0, len(users))
 
-L: 
+L:
 	for _, user := range users {
 		for _, opt := range filters {
-			if !opt.Judge(user) {	// 有一个条件不成立， 就过滤掉
+			if !opt.Judge(user) { // 有一个条件不成立， 就过滤掉
 				continue L
 			}
 		}
 	}
 
-
 	return filteredUsers
 }
-
 
 /**
 ********** gorm *************
 Open(dialector Dialector, opts ...Option) (db *DB, err error)
 type Option interface {
-	Apple(*Config) error 
+	Apple(*Config) error
 	AfterInitialize(*DB) error
 }
 **/
